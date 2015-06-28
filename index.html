@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax - Отправка формы  при помощи JQuery | Дизайн студия OX2</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" src="jquery-2.1.4.js"></script>
+        <script type="text/javascript">
+ 
+           /**
+             * Функция для отправки формы средствами Ajax
+             **/
+            function AjaxFormRequest(result_id,form_id,url) {
+                jQuery.ajax({
+                    url:     url, //Адрес подгружаемой страницы
+                    type:     "POST", //Тип запроса
+                    dataType: "html", //Тип данных
+                    data: jQuery("#"+form_id).serialize(), 
+                    success: function(response) { //Если все нормально
+                    document.getElementById(result_id).innerHTML = response;
+                },
+                error: function(response) { //Если ошибка
+                document.getElementById(result_id).innerHTML = "Ошибка при отправке формы";
+                }
+             });
+        }
+ 
+   </script>
+    </head>
+    <body>
+        <div style="border: 1px solid red; width: 220px; height: 80px; padding: 10px;" id="result_div_id">
+            Тут будет вывод нашей формы<br/>
+            <br/>
+            
+        </div>
+        <br/><br/>
+        <form method="post" action="" id="form_id">
+            Имя: <input type="text" name="name" value="Антон" /><br/>
+            Телефон: <input type="text" name="phone" value="8(916)124-234-122" /><br/>
+            Сайт: <input type="text" name="site" value="http://ox2.ru/" /><br/>
+            <input type="button" value="Отправить" onclick="AjaxFormRequest('result_div_id', 'form_id', 'form.php')" />
+        </form>
+ 
+    </body>
+</html>
